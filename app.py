@@ -40,6 +40,7 @@ def sendMail():
 
 @app.route('/send', methods=["POST"])
 def sendMailPost():
+    print(request.args)
     key = request.args.get('key')
     if (key == getenv("KEY")):
         email = request.args.get('email')
