@@ -25,14 +25,12 @@ def index():
 
 @app.route('/send', methods=["GET"])
 def sendMail():
-    print(request.headers)
     key = request.args.get('key')
     if (key == getenv("KEY")):
         email = request.args.get('email')
         body = request.args.get('body')
-
         msg = Message("Hello", recipients=[email])
-        msg.body = body
+        msg.html = body
         mail.send(msg)
         print(f"Sending to {email}...")
         return f"Sending to {email}..."
@@ -41,14 +39,12 @@ def sendMail():
 
 @app.route('/send', methods=["POST"])
 def sendMailPost():
-    print(request.headers)
     key = request.args.get('key')
     if (key == getenv("KEY")):
         email = request.args.get('email')
         body = request.args.get('body')
-
         msg = Message("Hello", recipients=[email])
-        msg.body = body
+        msg.html = body
         mail.send(msg)
         print(f"Sending to {email}...")
     print("Invalid api key")
