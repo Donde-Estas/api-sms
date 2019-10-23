@@ -42,14 +42,17 @@ def sendMail():
 def sendMailPost():
     print(request.args)
     key = request.args.get('key')
-    if (key == getenv("KEY")):
-        email = request.args.get('email')
-        body = request.args.get('body')
-        title = request.args.get('title')
-        msg = Message(title, recipients=[email])
-        msg.html = body
-        mail.send(msg)
-        print(f"Sending to {email}...")
-    print("Invalid api key")
+    try:
+        if (key == getenv("KEY")):
+            email = request.args.get('email')
+            body = request.args.get('body')
+            title = request.args.get('title')
+            msg = Message(title, recipients=[email])
+            msg.html = body
+            mail.send(msg)
+            print(f"Sending to {email}...")
+        print("Invalid api key")
+    except Exception as err:
+        print(err)
 
 
