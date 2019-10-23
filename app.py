@@ -1,5 +1,5 @@
 # Download the helper library from https://www.twilio.com/docs/python/install
-from twilio.rest import Client
+# from twilio.rest import Client
 from flask import Flask, request
 from os import getenv
 
@@ -14,23 +14,12 @@ app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=587,
     MAIL_USE_TLS=True,
-    MAIL_USE_SSL=False,
     MAIL_USERNAME=getenv("MAIL_USERNAME"),
     MAIL_PASSWORD=getenv("MAIL_PASSWORD"),
     MAIL_DEFAULT_SENDER=getenv("MAIL_USERNAME")
     )
 
 mail = Mail(app)
-
-# Your Account Sid and Auth Token from twilio.com/console
-# DANGER! This is insecure. See http://twil.io/secure
-account_sid = getenv("TWILIO_KEY")
-auth_token = getenv("TWILIO_AUTH")
-origin_phone = getenv("TWILIO_PHONE_NUMBER")
-
-# print(account_sid, auth_token)
-
-client = Client(account_sid, auth_token)
 
 @app.route('/')
 def index():
@@ -50,8 +39,18 @@ def sendMail():
         print(f"Sending to {email}...")
     print("Invalid api key")
 
-@app.route('/sms/<string:target>/')
-def sms(target):
+# Your Account Sid and Auth Token from twilio.com/console
+# DANGER! This is insecure. See http://twil.io/secure
+# account_sid = getenv("TWILIO_KEY")
+# auth_token = getenv("TWILIO_AUTH")
+# origin_phone = getenv("TWILIO_PHONE_NUMBER")
+
+# print(account_sid, auth_token)
+
+# client = Client(account_sid, auth_token)
+
+# @app.route('/sms/<string:target>/')
+# def sms(target):
     # try:
     #     message = client.messages.create(
     #                                 body='Hello there!',
@@ -62,4 +61,4 @@ def sms(target):
     #     print(message)
     # except Exception as err:
     #     print(err)
-    return "Nos Supported Yet"
+    # return "Nos Supported Yet"
