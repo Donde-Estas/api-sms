@@ -29,7 +29,8 @@ def sendMail():
     if (key == getenv("KEY")):
         email = request.args.get('email')
         body = request.args.get('body')
-        msg = Message("Hello", recipients=[email])
+        title = request.args.get('title')
+        msg = Message(title, recipients=[email])
         msg.html = body
         mail.send(msg)
         print(f"Sending to {email}...")
@@ -43,7 +44,8 @@ def sendMailPost():
     if (key == getenv("KEY")):
         email = request.args.get('email')
         body = request.args.get('body')
-        msg = Message("Hello", recipients=[email])
+        title = request.args.get('title')
+        msg = Message(title, recipients=[email])
         msg.html = body
         mail.send(msg)
         print(f"Sending to {email}...")
