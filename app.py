@@ -23,17 +23,34 @@ mail = Mail(app)
 def index():
     return "Sender API for Dónde Estás"
 
-@app.route('/send', methods=["GET", "POST"])
+@app.route('/send', methods=["GET"])
 def sendMail():
+    print(request.headers)
     key = request.args.get('key')
     if (key == getenv("KEY")):
         email = request.args.get('email')
         body = request.args.get('body')
 
-        msg = Message("Hello",
-                    recipients=[email])
-        msg.body(body)
+        msg = Message("Hello", recipients=[email])
+        msg.body = body
+        mail.send(msg)
+        print(f"Sending to {email}...")
+        return f"Sending to {email}..."
+    print("Invalid api key")
+    return "Invalid api key"
+
+@app.route('/send', methods=["POST"])
+def sendMailPost():
+    print(request.headers)
+    key = request.args.get('key')
+    if (key == getenv("KEY")):
+        email = request.args.get('email')
+        body = request.args.get('body')
+
+        msg = Message("Hello", recipients=[email])
+        msg.body = body
         mail.send(msg)
         print(f"Sending to {email}...")
     print("Invalid api key")
-    
+
+
