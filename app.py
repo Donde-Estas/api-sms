@@ -34,18 +34,21 @@ client = Client(account_sid, auth_token)
 
 @app.route('/')
 def index():
-    return "Hello World!"
+    return "Sender API for Dónde Estás"
 
 @app.route('/send', methods=["GET", "POST"])
 def sendMail():
-    email = request.args.get('email')
-    token = request.args.get('body')
+    key = request.args.get('key')
+    if (key == getenv("KEY")):
+        email = request.args.get('email')
+        body = request.args.get('body')
 
-    msg = Message("Hello",
-                  recipients=[email])
-    msg.body(body)
-    mail.send(msg)
-    return f"Sending to {email}..."
+        msg = Message("Hello",
+                    recipients=[email])
+        msg.body(body)
+        mail.send(msg)
+        print(f"Sending to {email}...")
+    print("Invalid api key")
 
 @app.route('/sms/<string:target>/')
 def sms(target):

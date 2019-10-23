@@ -10,6 +10,7 @@ twilio = "*"
 flask = "*"
 python-dotenv = "*"
 flask-mail = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
