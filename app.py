@@ -23,24 +23,8 @@ mail = Mail(app)
 def index():
     return "Sender API for Dónde Estás"
 
-@app.route('/send', methods=["GET"])
+@app.route('/send', methods=["GET", "POST"])
 def sendMail():
-    key = request.args.get('key')
-    if (key == getenv("KEY")):
-        email = request.args.get('email')
-        body = request.args.get('body')
-        title = request.args.get('title')
-        msg = Message(title, recipients=[email])
-        msg.html = body
-        mail.send(msg)
-        print(f"Sending to {email}...")
-        return f"Sending to {email}..."
-    print("Invalid api key")
-    return "Invalid api key"
-
-@app.route('/send', methods=["POST"])
-def sendMailPost():
-    print(request.args)
     key = request.args.get('key')
     try:
         if (key == getenv("KEY")):
@@ -51,8 +35,12 @@ def sendMailPost():
             msg.html = body
             mail.send(msg)
             print(f"Sending to {email}...")
-        print("Invalid api key")
+            return f"Sending to {email}...", 200
+        else:
+            print("Invalid api key")
+            return "Invalid api key", 401
     except Exception as err:
         print(err)
+        return "Internal Server Error", 500
 
 
